@@ -1,17 +1,31 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { usePongGameLoop } from './usePongGameLoop';
 import { PONG_WIDTH, PONG_HEIGHT, GAME_STATES, DIFFICULTY_LEVELS } from './pongConstants';
 
 export default function PongGame({ difficulty = 'medium' }) {
+  const navigate = useNavigate();
   const [selectedDifficulty, setSelectedDifficulty] = useState(difficulty);
   const [gameStarted, setGameStarted] = useState(false);
   const { canvasRef, gameData } = usePongGameLoop({ difficulty: selectedDifficulty });
+
+  const handleBackToMenu = () => {
+    navigate('/');
+  };
 
   // Show difficulty selection if game hasn't started
   if (!gameStarted) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-8 px-4">
         <div className="w-full max-w-2xl">
+          {/* Back Button */}
+          <button
+            onClick={handleBackToMenu}
+            className="mb-6 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded font-semibold transition-colors"
+          >
+            ← Back to Menu
+          </button>
+
           {/* Header */}
           <h1 className="text-5xl font-bold text-center mb-2 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
             PONG
@@ -88,8 +102,14 @@ export default function PongGame({ difficulty = 'medium' }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 py-8 px-4">
       <div className="w-full max-w-6xl">
-        {/* Header with difficulty display */}
+        {/* Header with controls */}
         <div className="flex items-center justify-between mb-2">
+          <button
+            onClick={handleBackToMenu}
+            className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded font-semibold text-sm transition-colors"
+          >
+            ← Back to Menu
+          </button>
           <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
             PONG
           </h1>
