@@ -110,6 +110,33 @@ npm run preview
 
 The built files will be in the `dist/` directory, ready to deploy.
 
+## 🌐 GitHub Pages Deployment
+
+This project is configured for automatic deployment to GitHub Pages.
+
+### Automatic Deployment (Recommended)
+The app automatically deploys when you push to the `master` or `main` branch:
+
+1. Go to repository **Settings → Pages**
+2. Under "Build and deployment", select source: **GitHub Actions**
+3. Click Save
+4. Push your code to master/main branch
+5. The workflow automatically builds and deploys
+6. Visit: `https://<your-username>.github.io/snake-game-react/`
+
+### Manual Deployment with gh-pages
+```bash
+# Deploy to GitHub Pages
+npm run deploy
+```
+
+Then configure your repository:
+1. Go to **Settings → Pages**
+2. Select source: **gh-pages** branch, **root** folder
+3. Click Save
+
+For detailed instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
 ## 📁 Project Structure
 
 ```
