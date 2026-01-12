@@ -2,15 +2,16 @@ import { useState } from 'react';
 import Dashboard from './components/Dashboard';
 import GameSettings from './components/GameSettings';
 import SnakeGame from './games/snake/SnakeGame';
+import TetrisGame from './games/tetris/TetrisGame';
 
 function App() {
-  const [screen, setScreen] = useState('dashboard'); // dashboard, gameSettings, snake
+  const [screen, setScreen] = useState('dashboard'); // dashboard, gameSettings, snake, tetris
+  const [currentGame, setCurrentGame] = useState(null); // snake or tetris
   const [speedMode, setSpeedMode] = useState('static');
 
   const handleGameSelect = (gameId) => {
-    if (gameId === 'snake') {
-      setScreen('gameSettings');
-    }
+    setCurrentGame(gameId);
+    setScreen('gameSettings');
   };
 
   const handleSpeedModeSelect = (mode) => {
@@ -18,8 +19,13 @@ function App() {
     setScreen('snake');
   };
 
+  const handleTetrisStart = () => {
+    setScreen('tetris');
+  };
+
   const handleBackToDashboard = () => {
     setScreen('dashboard');
+    setCurrentGame(null);
   };
 
   const handleBackToSettings = () => {
@@ -28,6 +34,7 @@ function App() {
 
   const handleExitGame = () => {
     setScreen('dashboard');
+    setCurrentGame(null);
   };
 
   return (
@@ -37,13 +44,19 @@ function App() {
       )}
       {screen === 'gameSettings' && (
         <GameSettings 
-          onPlay={handleSpeedModeSelect}
+          gameId={currentGame}
+          onPlay={currentGame === 'snake' ? handleSpeedModeSelect : handleTetrisStart}
           onBackToMenu={handleBackToDashboard}
         />
       )}
       {screen === 'snake' && (
         <SnakeGame 
           speedMode={speedMode}
+          onExit={handleExitGame}
+        />
+      )}
+      {screen === 'tetris' && (
+        <TetrisGame 
           onExit={handleExitGame}
         />
       )}

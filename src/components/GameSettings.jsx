@@ -1,8 +1,10 @@
 /**
  * GameSettings.jsx - Speed mode selection for Snake game
  */
-export default function GameSettings({ onPlay, onBackToMenu }) {
-  return (
+export default function GameSettings({ onPlay, onBackToMenu, gameId }) {
+  // Snake game has speed modes
+  if (gameId === 'snake') {
+    return (
     <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
@@ -84,4 +86,52 @@ export default function GameSettings({ onPlay, onBackToMenu }) {
       </div>
     </div>
   );
-}
+  }
+
+  // Tetris game starts directly
+  if (gameId === 'tetris') {
+    return (
+      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8">
+            <button
+              onClick={onBackToMenu}
+              className="mb-6 text-gray-400 hover:text-white transition text-sm"
+            >
+              ← Back
+            </button>
+            <h1 className="text-4xl font-bold text-blue-400 mb-2">🧱 TETRIS</h1>
+            <p className="text-gray-400">Get ready to play!</p>
+          </div>
+
+          <div className="bg-gray-800 rounded-lg p-8 border border-gray-700 text-center">
+            <p className="text-gray-300 text-lg mb-6">
+              Tetris doesn't have difficulty modes. Just play and enjoy!
+            </p>
+            
+            <button
+              onClick={() => onPlay('default')}
+              className="w-full p-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg transition duration-200 transform hover:scale-105 border border-blue-500 font-bold text-white text-lg"
+            >
+              🎮 Start Playing
+            </button>
+          </div>
+
+          <div className="mt-8 bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h3 className="text-gray-300 font-semibold mb-3">Game Features</h3>
+            <ul className="text-gray-400 text-sm space-y-2">
+              <li>✓ 7 classic Tetrimino pieces</li>
+              <li>✓ Progressive difficulty (faster at higher levels)</li>
+              <li>✓ Line clearing and scoring system</li>
+              <li>✓ Ghost piece preview</li>
+              <li>✓ High score tracking</li>
+              <li>✓ Pause and resume functionality</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+};

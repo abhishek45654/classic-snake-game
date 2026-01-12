@@ -10,16 +10,16 @@ export default function Dashboard({ onGameSelect }) {
       description: 'Classic arcade snake game. Eat food, grow longer, avoid yourself!',
       color: 'from-green-600 to-green-700',
       borderColor: 'border-green-500'
+    },
+    {
+      id: 'tetris',
+      name: 'Tetris',
+      emoji: '🧱',
+      description: 'Stack falling blocks and complete lines. Strategic puzzle gaming!',
+      color: 'from-blue-600 to-blue-700',
+      borderColor: 'border-blue-500'
     }
     // Future games can be added here
-    // {
-    //   id: 'flappy',
-    //   name: 'Flappy Bird',
-    //   emoji: '🐦',
-    //   description: 'Navigate through obstacles with simple tap controls.',
-    //   color: 'from-yellow-600 to-yellow-700',
-    //   borderColor: 'border-yellow-500'
-    // }
   ];
 
   return (
