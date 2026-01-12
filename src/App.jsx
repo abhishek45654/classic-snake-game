@@ -1,6 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import GameSettings from './components/GameSettings';
 import SnakeGame from './games/snake/SnakeGame';
@@ -15,7 +14,8 @@ function SnakeGameWrapper({ speedMode, onSpeedModeSelect }) {
   return <SnakeGame speedMode={finalMode} onSpeedModeSelect={onSpeedModeSelect} />;
 }
 
-function App() {
+// App content component - uses hooks inside Router context
+function AppContent() {
   const [speedMode, setSpeedMode] = useState('static');
 
   const handleSpeedModeSelect = (mode) => {
@@ -23,32 +23,38 @@ function App() {
   };
 
   return (
-    <Router basename="/classic-snake-game">
-      <Routes>
-        {/* Dashboard - Home Page */}
-        <Route path="/" element={<Dashboard />} />
+    <Routes>
+      {/* Dashboard - Home Page */}
+      <Route path="/" element={<Dashboard />} />
 
-        {/* Snake Game Settings Route - Optional (redirects to game) */}
-        <Route 
-          path="/game/snake/settings" 
-          element={<GameSettings onSpeedModeSelect={handleSpeedModeSelect} />} 
-        />
+      {/* Snake Game Settings Route - Optional (redirects to game) */}
+      <Route 
+        path="/game/snake/settings" 
+        element={<GameSettings onSpeedModeSelect={handleSpeedModeSelect} />} 
+      />
 
-        {/* Snake Game Route - Can be accessed directly with optional ?mode=speedMode parameter */}
-        <Route 
-          path="/game/snake" 
-          element={<SnakeGameWrapper speedMode={speedMode} onSpeedModeSelect={handleSpeedModeSelect} />} 
-        />
+      {/* Snake Game Route - Can be accessed directly with optional ?mode=speedMode parameter */}
+      <Route 
+        path="/game/snake" 
+        element={<SnakeGameWrapper speedMode={speedMode} onSpeedModeSelect={handleSpeedModeSelect} />} 
+      />
 
-        {/* Tetris Game Route - Direct access */}
-        <Route 
-          path="/game/tetris" 
-          element={<TetrisGame />} 
-        />
+      {/* Tetris Game Route - Direct access */}
+      <Route 
+        path="/game/tetris" 
+        element={<TetrisGame />} 
+      />
 
-        {/* Fallback - Redirect unknown routes to dashboard */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      {/* Fallback - Redirect unknown routes to dashboard */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
