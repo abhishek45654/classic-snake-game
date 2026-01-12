@@ -22,6 +22,22 @@ export default function Dashboard() {
       description: 'Stack falling blocks and complete lines. Strategic puzzle gaming!',
       color: 'from-blue-600 to-blue-700',
       borderColor: 'border-blue-500'
+    },
+    {
+      id: 'pacman',
+      name: 'Pac-Man',
+      emoji: '👻',
+      description: 'Navigate the maze, eat pellets, and avoid the ghosts!',
+      color: 'from-yellow-600 to-yellow-700',
+      borderColor: 'border-yellow-500'
+    },
+    {
+      id: 'pong',
+      name: 'Pong',
+      emoji: '🏓',
+      description: 'Classic Pong vs AI. Reach 11 points to win the match!',
+      color: 'from-cyan-600 to-blue-600',
+      borderColor: 'border-cyan-500'
     }
     // Future games can be added here
   ];
@@ -31,6 +47,10 @@ export default function Dashboard() {
       navigate('/game/snake/settings');
     } else if (gameId === 'tetris') {
       navigate('/game/tetris');
+    } else if (gameId === 'pacman') {
+      navigate('/game/pacman');
+    } else if (gameId === 'pong') {
+      navigate('/game/pong');
     }
   };
 
