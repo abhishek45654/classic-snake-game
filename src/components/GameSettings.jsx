@@ -1,19 +1,30 @@
 /**
- * GameSettings.jsx - Speed mode selection for Snake game
+ * GameSettings.jsx - Snake game speed mode selection
  */
-export default function GameSettings({ onPlay, onBackToMenu, gameId }) {
-  // Snake game has speed modes
-  if (gameId === 'snake') {
-    return (
+import { useNavigate } from 'react-router-dom';
+
+export default function GameSettings({ onSpeedModeSelect }) {
+  const navigate = useNavigate();
+
+  const handleBackToMenu = () => {
+    navigate('/');
+  };
+
+  const handleSnakePlay = (mode) => {
+    onSpeedModeSelect(mode);
+    navigate('/game/snake');
+  };
+
+  return (
     <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-12">
           <button
-            onClick={onBackToMenu}
+            onClick={handleBackToMenu}
             className="mb-6 text-gray-400 hover:text-white transition text-sm"
           >
-            ← Back
+            ← Back to Menu
           </button>
           <h1 className="text-4xl font-bold text-green-400 mb-2">🐍 SNAKE</h1>
           <p className="text-gray-400">Choose Speed Mode</p>
@@ -23,7 +34,7 @@ export default function GameSettings({ onPlay, onBackToMenu, gameId }) {
         <div className="space-y-4 bg-gray-800 rounded-lg p-8 border border-gray-700">
           {/* Static Mode */}
           <button
-            onClick={() => onPlay('static')}
+            onClick={() => handleSnakePlay('static')}
             className="w-full p-6 text-left bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg transition duration-200 transform hover:scale-105 border border-blue-500"
           >
             <h3 className="text-xl font-bold text-white mb-2">⏱️ Static Speed</h3>
@@ -39,7 +50,7 @@ export default function GameSettings({ onPlay, onBackToMenu, gameId }) {
 
           {/* Incremental Mode */}
           <button
-            onClick={() => onPlay('incremental')}
+            onClick={() => handleSnakePlay('incremental')}
             className="w-full p-6 text-left bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-lg transition duration-200 transform hover:scale-105 border border-purple-500"
           >
             <h3 className="text-xl font-bold text-white mb-2">📈 Incremental Speed</h3>
@@ -55,7 +66,7 @@ export default function GameSettings({ onPlay, onBackToMenu, gameId }) {
 
           {/* Progressive Mode */}
           <button
-            onClick={() => onPlay('progressive')}
+            onClick={() => handleSnakePlay('progressive')}
             className="w-full p-6 text-left bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 rounded-lg transition duration-200 transform hover:scale-105 border border-red-500"
           >
             <h3 className="text-xl font-bold text-white mb-2">⚡ Progressive Speed</h3>
@@ -86,52 +97,4 @@ export default function GameSettings({ onPlay, onBackToMenu, gameId }) {
       </div>
     </div>
   );
-  }
-
-  // Tetris game starts directly
-  if (gameId === 'tetris') {
-    return (
-      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <button
-              onClick={onBackToMenu}
-              className="mb-6 text-gray-400 hover:text-white transition text-sm"
-            >
-              ← Back
-            </button>
-            <h1 className="text-4xl font-bold text-blue-400 mb-2">🧱 TETRIS</h1>
-            <p className="text-gray-400">Get ready to play!</p>
-          </div>
-
-          <div className="bg-gray-800 rounded-lg p-8 border border-gray-700 text-center">
-            <p className="text-gray-300 text-lg mb-6">
-              Tetris doesn't have difficulty modes. Just play and enjoy!
-            </p>
-            
-            <button
-              onClick={() => onPlay('default')}
-              className="w-full p-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg transition duration-200 transform hover:scale-105 border border-blue-500 font-bold text-white text-lg"
-            >
-              🎮 Start Playing
-            </button>
-          </div>
-
-          <div className="mt-8 bg-gray-800 rounded-lg p-4 border border-gray-700">
-            <h3 className="text-gray-300 font-semibold mb-3">Game Features</h3>
-            <ul className="text-gray-400 text-sm space-y-2">
-              <li>✓ 7 classic Tetrimino pieces</li>
-              <li>✓ Progressive difficulty (faster at higher levels)</li>
-              <li>✓ Line clearing and scoring system</li>
-              <li>✓ Ghost piece preview</li>
-              <li>✓ High score tracking</li>
-              <li>✓ Pause and resume functionality</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return null;
-};
+}

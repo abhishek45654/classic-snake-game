@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useGameLoop } from './useGameLoop.js';
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from '../../utils/constants.js';
 
 /**
  * SnakeGame.jsx - Main Snake game component
  */
-export default function SnakeGame({ speedMode = 'static', onExit }) {
+export default function SnakeGame({ speedMode = 'static' }) {
+  const navigate = useNavigate();
+
   const {
     canvasRef,
     gameStatus,
@@ -22,6 +25,10 @@ export default function SnakeGame({ speedMode = 'static', onExit }) {
     toggleSpeedLock,
     quitGame
   } = useGameLoop({ speedMode });
+
+  const handleExit = () => {
+    navigate('/');
+  };
 
   useEffect(() => {
     const handler = (e) => {
@@ -41,7 +48,7 @@ export default function SnakeGame({ speedMode = 'static', onExit }) {
 
   const handleQuitToMenu = () => {
     quitGame();
-    setTimeout(onExit, 500);
+    setTimeout(handleExit, 500);
   };
 
   return (
@@ -50,7 +57,7 @@ export default function SnakeGame({ speedMode = 'static', onExit }) {
         {/* Header */}
         <div className="text-center mb-8">
           <button
-            onClick={onExit}
+            onClick={handleExit}
             className="mb-4 text-gray-400 hover:text-white transition text-sm"
           >
             ← Back to Menu
@@ -184,7 +191,7 @@ export default function SnakeGame({ speedMode = 'static', onExit }) {
                   Play Again
                 </button>
                 <button
-                  onClick={onExit}
+                  onClick={handleExit}
                   className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200"
                 >
                   Back to Menu

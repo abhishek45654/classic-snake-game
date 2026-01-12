@@ -1,7 +1,11 @@
 /**
  * Dashboard.jsx - Main game menu with multiple game options
  */
-export default function Dashboard({ onGameSelect }) {
+import { useNavigate } from 'react-router-dom';
+
+export default function Dashboard() {
+  const navigate = useNavigate();
+
   const games = [
     {
       id: 'snake',
@@ -22,6 +26,14 @@ export default function Dashboard({ onGameSelect }) {
     // Future games can be added here
   ];
 
+  const handleGameSelect = (gameId) => {
+    if (gameId === 'snake') {
+      navigate('/game/snake/settings');
+    } else if (gameId === 'tetris') {
+      navigate('/game/tetris');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-4xl">
@@ -38,7 +50,7 @@ export default function Dashboard({ onGameSelect }) {
           {games.map((game) => (
             <button
               key={game.id}
-              onClick={() => onGameSelect(game.id)}
+              onClick={() => handleGameSelect(game.id)}
               className={`p-8 text-left bg-gradient-to-br ${game.color} hover:shadow-2xl rounded-lg transition duration-300 transform hover:scale-105 border ${game.borderColor}`}
             >
               <div className="text-5xl mb-4">{game.emoji}</div>
@@ -57,13 +69,13 @@ export default function Dashboard({ onGameSelect }) {
             <strong>More games coming soon!</strong>
           </p>
           <p className="text-gray-500 text-sm">
-            Flappy Bird, 2048, Tetris, and more arcade classics...
+            Flappy Bird, 2048, Pac-Man, and more arcade classics...
           </p>
         </div>
 
         {/* Footer */}
         <div className="mt-12 text-center">
-          <p className="text-gray-500 text-sm">Built with React + Vite</p>
+          <p className="text-gray-500 text-sm">Built with React + Vite + React Router</p>
         </div>
       </div>
     </div>

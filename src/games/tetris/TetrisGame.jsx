@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTetrisGameLoop } from './useTetrisGameLoop.js';
 import { TETRIS_CANVAS_WIDTH, TETRIS_CANVAS_HEIGHT } from './tetrisConstants.js';
 
 /**
  * TetrisGame.jsx - Tetris game component
  */
-export default function TetrisGame({ onExit }) {
+export default function TetrisGame() {
+  const navigate = useNavigate();
+
   const {
     canvasRef,
     gameStatus,
@@ -20,6 +23,10 @@ export default function TetrisGame({ onExit }) {
     resumeGame,
     quitGame
   } = useTetrisGameLoop();
+
+  const handleExit = () => {
+    navigate('/');
+  };
 
   // Handle keyboard input
   useEffect(() => {
@@ -54,10 +61,10 @@ export default function TetrisGame({ onExit }) {
         {/* Header */}
         <div className="text-center mb-8">
           <button
-            onClick={onExit}
+            onClick={handleExit}
             className="mb-4 text-gray-400 hover:text-white transition text-sm"
           >
-            ← Back to Dashboard
+            ← Back to Menu
           </button>
           <h1 className="text-5xl font-bold text-blue-400 mb-2">🧱 TETRIS</h1>
           <p className="text-gray-400">Classic falling blocks puzzle game</p>
