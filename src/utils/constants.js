@@ -1,10 +1,10 @@
 // Game board configuration
-export const GRID_SIZE = 22; // Grid cells per dimension
+export const GRID_SIZE = 20; // Grid cells per dimension
 export const CELL_SIZE = 30; // Pixels per grid cell
 
 // Calculated canvas dimensions
-export const CANVAS_WIDTH = GRID_SIZE * CELL_SIZE; // 660px
-export const CANVAS_HEIGHT = GRID_SIZE * CELL_SIZE; // 660px
+export const CANVAS_WIDTH = GRID_SIZE * CELL_SIZE; // 600px
+export const CANVAS_HEIGHT = GRID_SIZE * CELL_SIZE; // 600px
 
 // Game speed settings
 export const BASE_SPEED = 100; // Base game loop interval in ms

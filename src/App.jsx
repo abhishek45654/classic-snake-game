@@ -6,6 +6,7 @@ import SnakeGame from './games/snake/SnakeGame';
 import TetrisGame from './games/tetris/TetrisGame';
 import PacmanGame from './games/pacman/PacmanGame';
 import PongGame from './games/pong/PongGame';
+import BreakoutGame from './games/breakout/BreakoutGame';
 
 // Wrapper component for SnakeGame to handle query parameters
 function SnakeGameWrapper({ speedMode, onSpeedModeSelect }) {
@@ -57,6 +58,12 @@ function AppContent() {
       <Route 
         path="/game/pong" 
         element={<PongGame />} 
+      />
+
+      {/* Breakout Game Route - Direct access */}
+      <Route 
+        path="/game/breakout" 
+        element={<BreakoutGame />} 
       />
 
       {/* Fallback - Redirect unknown routes to dashboard */}

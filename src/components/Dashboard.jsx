@@ -38,6 +38,14 @@ export default function Dashboard() {
       description: 'Classic Pong vs AI. Reach 11 points to win the match!',
       color: 'from-cyan-600 to-blue-600',
       borderColor: 'border-cyan-500'
+    },
+    {
+      id: 'breakout',
+      name: 'Neon Brickfall',
+      emoji: '💥',
+      description: 'Modern breakout game. Shatter tiles with your glowing orb!',
+      color: 'from-purple-600 to-pink-600',
+      borderColor: 'border-purple-500'
     }
     // Future games can be added here
   ];
@@ -51,6 +59,8 @@ export default function Dashboard() {
       navigate('/game/pacman');
     } else if (gameId === 'pong') {
       navigate('/game/pong');
+    } else if (gameId === 'breakout') {
+      navigate('/game/breakout');
     }
   };
 
