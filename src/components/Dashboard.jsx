@@ -46,6 +46,14 @@ export default function Dashboard() {
       description: 'Modern breakout game. Shatter tiles with your glowing orb!',
       color: 'from-purple-600 to-pink-600',
       borderColor: 'border-purple-500'
+    },
+    {
+      id: 'genzgame',
+      name: 'GENZGAME',
+      emoji: '✨',
+      description: 'Bounce. Break. Flex. Modern arcade paddle-and-orb chaos!',
+      color: 'from-pink-600 to-cyan-600',
+      borderColor: 'border-pink-500'
     }
     // Future games can be added here
   ];
@@ -61,6 +69,8 @@ export default function Dashboard() {
       navigate('/game/pong');
     } else if (gameId === 'breakout') {
       navigate('/game/breakout');
+    } else if (gameId === 'genzgame') {
+      navigate('/game/genzgame');
     }
   };
 
