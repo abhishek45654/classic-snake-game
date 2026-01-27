@@ -11,10 +11,26 @@ class Tile {
   }
 
   collidesWith(orb) {
-    return (
-      orb.x < this.x + 1 && orb.x > this.x &&
-      orb.y < this.y + 1 && orb.y > this.y
-    );
+    // Check collision with orb radius accounted for
+    // Tile occupies [x, x+1] x [y, y+1]
+    // Orb center is at (orb.x, orb.y) with radius orb.radius
+    
+    const tileLeft = this.x;
+    const tileRight = this.x + 1;
+    const tileTop = this.y;
+    const tileBottom = this.y + 1;
+    
+    // Find closest point on tile to orb center
+    const closestX = Math.max(tileLeft, Math.min(orb.x, tileRight));
+    const closestY = Math.max(tileTop, Math.min(orb.y, tileBottom));
+    
+    // Calculate distance from orb center to closest point
+    const dx = orb.x - closestX;
+    const dy = orb.y - closestY;
+    const distanceSquared = dx * dx + dy * dy;
+    
+    // Check if distance is less than orb radius
+    return distanceSquared < (orb.radius * orb.radius);
   }
 
   hit() {
@@ -93,8 +109,27 @@ export class TileManager {
         tile.hit();
         onHit(points, tile.x, tile.y);
 
-        // Bounce
-        orb.vy *= -1;
+        // Determine bounce direction based on which side of tile was hit
+        const tileCenterX = tile.x + 0.5;
+        const tileCenterY = tile.y + 0.5;
+        const dx = orb.x - tileCenterX;
+        const dy = orb.y - tileCenterY;
+        
+        // Bounce based on which axis has larger difference
+        if (Math.abs(dx) > Math.abs(dy)) {
+          // Hit from left or right
+          orb.vx *= -1;
+        } else {
+          // Hit from top or bottom
+          orb.vy *= -1;
+        }
+        
+        // Move orb out of tile to prevent getting stuck
+        if (Math.abs(dx) > Math.abs(dy)) {
+          orb.x = dx > 0 ? tile.x + 1 + orb.radius : tile.x - orb.radius;
+        } else {
+          orb.y = dy > 0 ? tile.y + 1 + orb.radius : tile.y - orb.radius;
+        }
       }
     });
   }

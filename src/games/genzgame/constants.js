@@ -20,8 +20,8 @@ export const GAME_CONFIG = {
   PADDLE_WIDTH: 3,
   PADDLE_HEIGHT: 0.5,
   ORB_RADIUS: 0.4,
-  BASE_BALL_SPEED: 5,
-  MAX_BALL_SPEED: 12,
+  BASE_BALL_SPEED: 0.15,  // Reduced from 5 to reasonable speed
+  MAX_BALL_SPEED: 0.25,    // Reduced from 12
   LIVES: 3,
   SOFT_TILE_POINTS: 100,
   HARD_TILE_POINTS: 200,

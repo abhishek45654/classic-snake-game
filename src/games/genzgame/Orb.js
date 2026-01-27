@@ -14,6 +14,7 @@ export class Orb {
   launch() {
     if (!this.launched) {
       this.vy = -GAME_CONFIG.BASE_BALL_SPEED;
+      this.vx = 0; // Start with no horizontal velocity
       this.launched = true;
     }
   }
@@ -66,9 +67,20 @@ export class Orb {
     const angle = (hitPos - 0.5) * Math.PI * 0.5;
     const speed = Math.sqrt(this.vx ** 2 + this.vy ** 2);
     
-    this.vx = Math.sin(angle) * speed;
-    this.vy = -Math.abs(Math.cos(angle) * speed);
+    // Ensure minimum speed
+    const minSpeed = GAME_CONFIG.BASE_BALL_SPEED;
+    const currentSpeed = Math.max(speed, minSpeed);
+    
+    this.vx = Math.sin(angle) * currentSpeed;
+    this.vy = -Math.abs(Math.cos(angle) * currentSpeed);
+    
+    // Position orb above paddle
     this.y = paddle.y - paddle.height / 2 - this.radius;
+    
+    // Ensure orb doesn't go through paddle
+    if (this.y > paddle.y - paddle.height / 2) {
+      this.y = paddle.y - paddle.height / 2 - this.radius;
+    }
   }
 
   render(ctx, cellSize) {

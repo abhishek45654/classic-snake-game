@@ -57,15 +57,24 @@ export default function GenZGame({ onBack }) {
 
   useEffect(() => {
     const handleKeyPress = (e) => {
-      if (e.key === ' ' || e.key === 'p' || e.key === 'P') {
+      // Handle pause with P key
+      if (e.key === 'p' || e.key === 'P') {
         e.preventDefault();
         togglePause();
+      }
+      // Space key: pause if paused, otherwise let game loop handle it for launching
+      if (e.key === ' ') {
+        if (gameState.isPaused) {
+          e.preventDefault();
+          togglePause();
+        }
+        // If not paused, let useGameLoop handle it for launching orb
       }
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, []);
+  }, [gameState.isPaused]);
 
   return (
     <div className="genzgame-container">
